@@ -64,23 +64,29 @@ class Program
     {
         connection = new SqlConnection(ConnectionString);
 
+        //membuat command
         SqlCommand command = new SqlCommand();
         command.Connection = connection;
         command.CommandText = "SELECT * FROM region WHERE id = @id";
 
+        //membuka koneksi
         connection.Open();
 
+        //membuat parameter untuk @id untuk memanggil id region pada database.
         SqlParameter pId = new SqlParameter();
         pId.ParameterName = "@id";
-        pId.Value = id;
-        pId.SqlDbType = System.Data.SqlDbType.Int;
+        pId.Value = id; //=@id = parameter id pada GetById(int id). =id yang akan dibaca untuk @id.
+        pId.SqlDbType = System.Data.SqlDbType.Int; //menyesuaikan tipe data dengan yang ada pada database.
 
+        //menambahkan parameter ke command untuk diexecute.
         command.Parameters.Add(pId);
 
+        //membaca apakah data ada.
         using SqlDataReader reader = command.ExecuteReader();
         if (reader.HasRows)
         {
-            while(reader.Read())
+            //menampilkan data yang ditemukan.
+            while (reader.Read())
             {
                 Console.WriteLine("Id: " + reader[0]);
                 Console.WriteLine("Name: " + reader[1]);
@@ -100,28 +106,33 @@ class Program
     {
         connection = new SqlConnection(ConnectionString);
 
+        //membuka koneksi.
         connection.Open();
+
+        //memulai database transaction; berlaku untuk insert, update, delete.
         SqlTransaction transaction = connection.BeginTransaction();
 
         try
         {
-            //membuat instance command
+            //membuat instance command sql insert.
             SqlCommand command = new SqlCommand();
             command.Connection = connection;
             command.CommandText = "INSERT INTO region (name) VALUES (@name)";
             command.Transaction = transaction;
 
-            //membuat parameter
+            //membuat parameter @name untuk field name pada region database.
             SqlParameter pName = new SqlParameter();
             pName.ParameterName = "@name";
-            pName.Value = name;
+            pName.Value = name; //=@name.
             pName.SqlDbType = System.Data.SqlDbType.VarChar;
 
-            //menambahkan parameter ke command
+            //menambahkan parameter ke command.
             command.Parameters.Add(pName);
 
-            //menjalankan command
+            //menjalankan command(query).
             int result = command.ExecuteNonQuery();
+
+            //melakukan transaction.
             transaction.Commit();
 
             if (result > 0)
@@ -151,28 +162,35 @@ class Program
     public static void UpdateRegion(int id, string name)
     {
         connection = new SqlConnection(ConnectionString);
+        //membuka koneksi db.
         connection.Open();
+
+        //memulai transaction.
         SqlTransaction transaction = connection.BeginTransaction();
 
         try
         {
+            //membuat command untuk update data di database.
             SqlCommand command = new SqlCommand();
             command.Connection = connection;
-            command.CommandText = "UPDATE region SET name = @name WHERE id = @id";
+            command.CommandText = "UPDATE region SET name = @name WHERE id = @id"; //terdapat @name dan @id.
             command.Transaction = transaction;
 
+            //membuat parameter untuk membaca @id.
             SqlParameter pId = new SqlParameter();
             pId.ParameterName = "@id";
-            pId.Value = id;
+            pId.Value = id; //=@id.
             pId.SqlDbType = System.Data.SqlDbType.Int;
-            command.Parameters.Add(pId);
+            command.Parameters.Add(pId); //menambahkan ke command @id.
 
+            //membuat parameter untuk @name.
             SqlParameter pName = new SqlParameter();
             pName.ParameterName = "@name";
-            pName.Value = name;
+            pName.Value = name; //=@name.
             pName.SqlDbType = System.Data.SqlDbType.VarChar;
-            command.Parameters.Add(pName);
+            command.Parameters.Add(pName); //menambahkan ke command @name.
 
+            //execute command.
             int result = command.ExecuteNonQuery();
             transaction.Commit();
 
@@ -206,17 +224,20 @@ class Program
         SqlTransaction transaction = connection.BeginTransaction();
         try
         {
+            //membuat command untuk delete.
             SqlCommand command = new SqlCommand();
             command.Connection = connection;
-            command.CommandText = "DELETE FROM region WHERE id = @id";
+            command.CommandText = "DELETE FROM region WHERE id = @id"; //dibutuhkan @id.
             command.Transaction = transaction;
 
+            //membuat parameter untuk @id.
             SqlParameter pId = new SqlParameter();
             pId.ParameterName = "@id";
-            pId.Value = id;
+            pId.Value = id; //=@id.
             pId.SqlDbType = System.Data.SqlDbType.Int;
-            command.Parameters.Add(pId);
+            command.Parameters.Add(pId); //menambahkan id ke command @id.
 
+            //execute command.
             int result = command.ExecuteNonQuery();
             transaction.Commit();
 

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\FGA\\DTS Fullstack Developer\\Basic Programming\\LatihanNet\\DatabaseConnectivity\\DatabaseConnectivity.csproj": {}
+    "D:\\FGA\\DTS Fullstack Developer\\Basic Programming\\net project\\LatihanDbConnect\\DatabaseConnectivity\\DatabaseConnectivity.csproj": {}
   },
   "projects": {
-    "D:\\FGA\\DTS Fullstack Developer\\Basic Programming\\LatihanNet\\DatabaseConnectivity\\DatabaseConnectivity.csproj": {
+    "D:\\FGA\\DTS Fullstack Developer\\Basic Programming\\net project\\LatihanDbConnect\\DatabaseConnectivity\\DatabaseConnectivity.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\FGA\\DTS Fullstack Developer\\Basic Programming\\LatihanNet\\DatabaseConnectivity\\DatabaseConnectivity.csproj",
+        "projectUniqueName": "D:\\FGA\\DTS Fullstack Developer\\Basic Programming\\net project\\LatihanDbConnect\\DatabaseConnectivity\\DatabaseConnectivity.csproj",
         "projectName": "DatabaseConnectivity",
-        "projectPath": "D:\\FGA\\DTS Fullstack Developer\\Basic Programming\\LatihanNet\\DatabaseConnectivity\\DatabaseConnectivity.csproj",
+        "projectPath": "D:\\FGA\\DTS Fullstack Developer\\Basic Programming\\net project\\LatihanDbConnect\\DatabaseConnectivity\\DatabaseConnectivity.csproj",
         "packagesPath": "C:\\Users\\Lathifah Hanum\\.nuget\\packages\\",
-        "outputPath": "D:\\FGA\\DTS Fullstack Developer\\Basic Programming\\LatihanNet\\DatabaseConnectivity\\obj\\",
+        "outputPath": "D:\\FGA\\DTS Fullstack Developer\\Basic Programming\\net project\\LatihanDbConnect\\DatabaseConnectivity\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Lathifah Hanum\\AppData\\Roaming\\NuGet\\NuGet.Config",
