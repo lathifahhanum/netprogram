@@ -37,7 +37,7 @@ namespace ProjectWeb.Controllers
         public IActionResult Register(RegisterVM registerVM)
         {
             var result = _accountRepository.Register(registerVM);
-            if (result > 0)
+            if (result != null)
             {
                 return RedirectToAction("Login", "Account");
             }
@@ -54,9 +54,9 @@ namespace ProjectWeb.Controllers
         public IActionResult Login(LoginVM loginVM)
         {
             var result = _accountRepository.Login(loginVM);
-            if (result != null)
+            if (result != true)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Login");
             }
             return View();
         }

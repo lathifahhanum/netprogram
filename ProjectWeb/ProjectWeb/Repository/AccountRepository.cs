@@ -12,62 +12,81 @@ namespace ProjectWeb.Repository
         {
         }
 
-        public int Register(RegisterVM registerVM) 
+        public RegisterVM? Register(RegisterVM registerVM) 
         {
-            var university = new University
+            using var transaction = _context.Database.BeginTransaction();
+            try
             {
-                Name = registerVM.UniversityName,
-            };
-            _context.Universities.Add(university);
-            _context.SaveChanges();
+                
+                var university = new University
+                {
+                    Name = registerVM.UniversityName,
+                };
+                if (_context.Universities.Any(u => u.Name == university.Name)) {
+                    university.Id = _context.Universities
+                        .FirstOrDefault(u => u.Name == university.Name)!
+                        .Id;
+                }
+                else
+                {
+                    _context.Universities.Add(university);
+                    _context.SaveChanges();
+                }
+                
 
-            var education = new Education
+                var education = new Education
+                {
+                    Major = registerVM.Major,
+                    Degree = registerVM.Degree,
+                    Gpa = registerVM.Gpa,
+                    UniversityId = university.Id,
+                };
+                _context.Educations.Add(education);
+                _context.SaveChanges();
+
+                var employee = new Employee
+                {
+                    Nik = registerVM.Nik,
+                    FirstName = registerVM.FirstName,
+                    LastName = registerVM.LastName,
+                    BirthDate = registerVM.BirthDate,
+                    Gender = registerVM.Gender,
+                    PhoneNumber = registerVM.PhoneNumber,
+                    Email = registerVM.Email,
+                    HiringDate = DateTime.Now,
+                };
+
+                _context.Employees.Add(employee);
+                _context.SaveChanges();
+
+                var account = new Account
+                {
+                    EmployeeNik = registerVM.Nik,
+                    Password = registerVM.Password,
+                };
+                _context.Accounts.Add(account);
+                _context.SaveChanges();
+
+                var profiling = new Profiling
+                {
+                    EmployeeNik = registerVM.Nik,
+                    EducationId = education.Id,
+                };
+                _context.Profilings.Add(profiling);
+                _context.SaveChanges();
+
+                transaction.Commit();
+            } catch(Exception ex)
             {
-                Major = registerVM.Major,
-                Degree = registerVM.Degree,
-                Gpa = registerVM.Gpa,
-                UniversityId = university.Id,
-            };
-            _context.Educations.Add(education);
-            _context.SaveChanges();
-
-            var employee = new Employee
-            {
-                Nik = registerVM.Nik,
-                FirstName = registerVM.FirstName,
-                LastName = registerVM.LastName,
-                BirthDate = registerVM.BirthDate,
-                Gender = registerVM.Gender,
-                PhoneNumber = registerVM.PhoneNumber,
-                Email = registerVM.Email,
-                HiringDate  = DateTime.Now,
-            };
-
-            _context.Employees.Add(employee);
-            _context.SaveChanges();
-
-            var account = new Account
-            {
-                EmployeeNik = registerVM.Nik,
-                Password = registerVM.Password,
-            };
-            _context.Accounts.Add(account);
-            _context.SaveChanges();
-
-            var profiling = new Profiling
-            {
-                EmployeeNik = registerVM.Nik,
-                EducationId = education.Id,
-            };
-            _context.Profilings.Add(profiling);
-            return _context.SaveChanges();
+                transaction.Rollback();
+                throw ex;
+            }
+            return registerVM;
         }
 
         public bool Login(LoginVM loginVM)
         {
-            //Employee employee = new Employee();
-            //var email = _context.Set<Employee>().Where(e => e.Email.Equals(loginVM.Email));
-
+            
             var login = (from e in _context.Employees
                         join a in _context.Accounts
                         on e.Nik equals a.EmployeeNik
