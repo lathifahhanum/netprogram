@@ -38,35 +38,35 @@ namespace FinaleApp.Views
                     case 1:
                         Console.Clear();
                         dc.GetDokter();
-                        Console.Clear();
+                        //Console.Clear();
                         menudokter();
                         break;
 
                     case 2:
                         Console.Clear();
                         dc.InsertDokter();
-                        Console.Clear();
+                        //Console.Clear();
                         menudokter();
                         break;
 
                     case 3:
                         Console.Clear();
                         dc.UpdateDokter();
-                        Console.Clear();
+                        //Console.Clear();
                         menudokter();
                         break;
 
                     case 4:
                         Console.Clear();
                         dc.GetDokterById();
-                        Console.Clear();
+                        //Console.Clear();
                         menudokter();
                         break;
 
                     case 5:
                         Console.Clear();
                         dc.DeleteDokter();
-                        Console.Clear();
+                        //Console.Clear();
                         menudokter();
                         break;
 

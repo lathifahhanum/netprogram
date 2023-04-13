@@ -39,7 +39,7 @@ namespace FinaleApp.Views
                         Console.Clear();
                         //RumahsakitCont rsc = new RumahsakitCont();
                         rsc.GetRs();
-                        Console.Clear();
+                        //Console.Clear();
                         menurs();
                         break;
 
@@ -47,7 +47,7 @@ namespace FinaleApp.Views
                         Console.Clear();
                         //RumahsakitCont rsc = new RumahsakitCont();
                         rsc.InsertRs();
-                        Console.Clear();
+                        //Console.Clear();
                         menurs();
                         break;
 
@@ -55,7 +55,7 @@ namespace FinaleApp.Views
                         Console.Clear();
                         //RumahsakitCont rsc = new RumahsakitCont();
                         rsc.UpdateRs();
-                        Console.Clear();
+                        //Console.Clear();
                         menurs();
 
                         break;
@@ -64,7 +64,7 @@ namespace FinaleApp.Views
                         Console.Clear();
                         //RumahsakitCont rsc = new RumahsakitCont();
                         rsc.GetRsById();
-                        Console.Clear();
+                        //Console.Clear();
                         menurs();
                         break;
 
@@ -72,7 +72,7 @@ namespace FinaleApp.Views
                         Console.Clear();
                         //RumahsakitCont rsc = new RumahsakitCont();
                         rsc.DeleteRs();
-                        Console.Clear();
+                        //Console.Clear();
                         menurs();
                         break;
 

@@ -97,7 +97,7 @@ namespace FinaleApp.Repositories
                 command.Transaction = transaction;
 
                 SqlParameter pId = new SqlParameter();
-                pId.ParameterName = "@Id";
+                pId.ParameterName = "@id";
                 pId.Value = obj.Id;
                 pId.SqlDbType = System.Data.SqlDbType.VarChar;
                 command.Parameters.Add(pId);

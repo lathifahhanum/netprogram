@@ -1,0 +1,8 @@
+D:\FGA\DTS Fullstack Developer\Basic Programming\net project\WebApplication\WebApplication\obj\Debug\net6.0\WebApplication.csproj.AssemblyReference.cache
+D:\FGA\DTS Fullstack Developer\Basic Programming\net project\WebApplication\WebApplication\obj\Debug\net6.0\WebApplication.GeneratedMSBuildEditorConfig.editorconfig
+D:\FGA\DTS Fullstack Developer\Basic Programming\net project\WebApplication\WebApplication\obj\Debug\net6.0\WebApplication.AssemblyInfoInputs.cache
+D:\FGA\DTS Fullstack Developer\Basic Programming\net project\WebApplication\WebApplication\obj\Debug\net6.0\WebApplication.AssemblyInfo.cs
+D:\FGA\DTS Fullstack Developer\Basic Programming\net project\WebApplication\WebApplication\obj\Debug\net6.0\WebApplication.csproj.CoreCompileInputs.cache
+D:\FGA\DTS Fullstack Developer\Basic Programming\net project\WebApplication\WebApplication\obj\Debug\net6.0\WebApplication.MvcApplicationPartsAssemblyInfo.cache
+D:\FGA\DTS Fullstack Developer\Basic Programming\net project\WebApplication\WebApplication\obj\Debug\net6.0\WebApplication.RazorAssemblyInfo.cache
+D:\FGA\DTS Fullstack Developer\Basic Programming\net project\WebApplication\WebApplication\obj\Debug\net6.0\WebApplication.RazorAssemblyInfo.cs
