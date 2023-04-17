@@ -21,6 +21,11 @@ builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 //builder.Services.AddTransient
 //builder.Services.AddSingleton
 
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromSeconds(10);
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -33,7 +38,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
+app.UseSession();
 app.UseRouting();
 
 app.UseAuthorization();

@@ -7,7 +7,7 @@ namespace ProjectWeb.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        public const string SessionKeyName = "_Name";
+        //public const string SessionKeyName = "_Name";
 
         public HomeController(ILogger<HomeController> logger)
         {
@@ -16,7 +16,8 @@ namespace ProjectWeb.Controllers
 
         public IActionResult Index()
         {
-            //HttpContext.Session.SetString(SessionKeyName, string.Empty);
+            var sessionKeyName = HttpContext.Session.GetString("FullName");
+            ViewBag.FullName = sessionKeyName;
             return View();
         }
 

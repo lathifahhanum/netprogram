@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "JyJKXh2mHauhFvlgAP99TD1P/7gRiZq0Oc3jfBtur/BAeWQvnU2lv7REzi0W6zS+IlmegJRbBcfxFGXn7vq1dw==",
+  "dgSpecHash": "tQvP/u6Wopa3byyu5beE3foyIFvivAuwLEhtfhzOR0jY0QzGvk//C5/p/Ghoc1qDIPueMuQBoErvJMjM0zKHvA==",
   "success": true,
   "projectFilePath": "D:\\FGA\\DTS Fullstack Developer\\Basic Programming\\net project\\ProjectWeb\\ProjectWeb\\ProjectWeb.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Lathifah Hanum\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\Lathifah Hanum\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",
+    "C:\\Users\\Lathifah Hanum\\.nuget\\packages\\bcrypt.net-next\\4.0.0\\bcrypt.net-next.4.0.0.nupkg.sha512",
     "C:\\Users\\Lathifah Hanum\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\Lathifah Hanum\\.nuget\\packages\\messagepack\\2.1.152\\messagepack.2.1.152.nupkg.sha512",
     "C:\\Users\\Lathifah Hanum\\.nuget\\packages\\messagepack.annotations\\2.1.152\\messagepack.annotations.2.1.152.nupkg.sha512",

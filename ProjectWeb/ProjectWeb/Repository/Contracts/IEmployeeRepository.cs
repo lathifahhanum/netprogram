@@ -4,6 +4,7 @@ namespace ProjectWeb.Repository.Contracts
 {
     public interface IEmployeeRepository:IGeneralRepository<Employee, string>
     {
+        string GetFullName(string email);
         /*IEnumerable<Employee> GetAll();
         Employee? GetById(string id);
         IEnumerable<Employee> Search(string name);

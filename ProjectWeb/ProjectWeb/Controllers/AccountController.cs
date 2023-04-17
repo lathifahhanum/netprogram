@@ -8,9 +8,11 @@ namespace ProjectWeb.Controllers
     public class AccountController : Controller
     {
         private readonly IAccountRepository _accountRepository;
-        public AccountController(IAccountRepository accountRepository)
+        private readonly IEmployeeRepository _employeeRepository;
+        public AccountController(IAccountRepository accountRepository, IEmployeeRepository employeeRepository)
         {
             _accountRepository = accountRepository;
+            _employeeRepository = employeeRepository;
         }
 
         [HttpGet]
@@ -37,7 +39,7 @@ namespace ProjectWeb.Controllers
         public IActionResult Register(RegisterVM registerVM)
         {
             var result = _accountRepository.Register(registerVM);
-            if (result != null)
+            if (result > 0)
             {
                 return RedirectToAction("Login", "Account");
             }
@@ -54,11 +56,16 @@ namespace ProjectWeb.Controllers
         public IActionResult Login(LoginVM loginVM)
         {
             var result = _accountRepository.Login(loginVM);
-            if (result != true)
+            if (!result)
             {
-                return RedirectToAction("Index", "Login");
+                ModelState.AddModelError(string.Empty, "Email or password is incorrect");
+                return View();
             }
-            return View();
+
+            var sessionFullName = _employeeRepository.GetFullName(loginVM.Email);
+            HttpContext.Session.SetString("FullName", sessionFullName);
+
+            return RedirectToAction("Index", "Home");
         }
 
     }

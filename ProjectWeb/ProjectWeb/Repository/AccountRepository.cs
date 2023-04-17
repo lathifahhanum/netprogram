@@ -2,6 +2,7 @@
 using ProjectWeb.Models;
 using ProjectWeb.Repository.Contracts;
 using ProjectWeb.ViewModels;
+using ProjectWeb.Handler;
 
 namespace ProjectWeb.Repository
 {
@@ -12,7 +13,7 @@ namespace ProjectWeb.Repository
         {
         }
 
-        public RegisterVM? Register(RegisterVM registerVM) 
+        public int Register(RegisterVM registerVM) 
         {
             using var transaction = _context.Database.BeginTransaction();
             try
@@ -62,7 +63,7 @@ namespace ProjectWeb.Repository
                 var account = new Account
                 {
                     EmployeeNik = registerVM.Nik,
-                    Password = registerVM.Password,
+                    Password = Hashing.HashPassword(registerVM.Password),
                 };
                 _context.Accounts.Add(account);
                 _context.SaveChanges();
@@ -75,27 +76,42 @@ namespace ProjectWeb.Repository
                 _context.Profilings.Add(profiling);
                 _context.SaveChanges();
 
+                var accountRole = new AccountRole
+                {
+                    AccountNik = registerVM.Nik,
+                    RoleId = 2,
+                };
+                _context.AccountRoles.Add(accountRole);
+                _context.SaveChanges();
+
                 transaction.Commit();
-            } catch(Exception ex)
+                return 1;
+            } catch(Exception)
             {
                 transaction.Rollback();
-                throw ex;
+                return 0;
             }
-            return registerVM;
         }
 
         public bool Login(LoginVM loginVM)
         {
             
-            var login = (from e in _context.Employees
+            /*var login = (from e in _context.Employees
                         join a in _context.Accounts
                         on e.Nik equals a.EmployeeNik
                         select new
                         {
                             Email = e.Email,
                             Password = a.Password,
-                        }).FirstOrDefault(e => e.Email == loginVM.Email && e.Password == loginVM.Password);
-            return true;
+                        }).FirstOrDefault(e => e.Email == loginVM.Email && e.Password == loginVM.Password);*/
+
+            var login = _context.Employees.Join(_context.Accounts, e => e.Nik, a => a.EmployeeNik, (e,a) => new LoginVM
+            {
+                Email = e.Email,
+                Password = a.Password,
+            }).FirstOrDefault(e => e.Email == loginVM.Email);
+
+            return login is not null && Hashing.ValidatePassword(loginVM.Password, login.Password);
             
         }
     }

@@ -48,5 +48,13 @@ namespace ProjectWeb.Repository
         public EmployeeRepository(MyContext context) : base(context)
         {
         }
+
+        public string GetFullName(string email)
+        {
+            var employee = _context.Employees.FirstOrDefault(e => e.Email == email);
+            if (employee == null) { return String.Empty;}
+
+            return employee.FirstName + " " + employee.LastName;
+        }
     }
 }

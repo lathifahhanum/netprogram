@@ -293,3 +293,4 @@ D:\FGA\DTS Fullstack Developer\Basic Programming\net project\ProjectWeb\ProjectW
 D:\FGA\DTS Fullstack Developer\Basic Programming\net project\ProjectWeb\ProjectWeb\obj\Debug\net6.0\ProjectWeb.pdb
 D:\FGA\DTS Fullstack Developer\Basic Programming\net project\ProjectWeb\ProjectWeb\obj\Debug\net6.0\ProjectWeb.genruntimeconfig.cache
 D:\FGA\DTS Fullstack Developer\Basic Programming\net project\ProjectWeb\ProjectWeb\obj\Debug\net6.0\ref\ProjectWeb.dll
+D:\FGA\DTS Fullstack Developer\Basic Programming\net project\ProjectWeb\ProjectWeb\bin\Debug\net6.0\BCrypt.Net-Next.dll

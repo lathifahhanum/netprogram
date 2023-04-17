@@ -5,7 +5,7 @@ namespace ProjectWeb.Repository.Contracts
 {
     public interface IAccountRepository: IGeneralRepository<Account, string>
     {
-        RegisterVM? Register(RegisterVM registerVM);
+        int Register(RegisterVM registerVM);
         bool Login(LoginVM loginVM);
 
         /*IEnumerable<Account> GetAll();
