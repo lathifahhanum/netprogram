@@ -15,7 +15,7 @@ namespace ProjectClientServer.Controllers
         }
 
         // GET: api/General
-        [HttpGet]
+        /*[HttpGet]
         public async Task<ActionResult<IEnumerable<TEntity>>> Index()
         {
             return View(await repository.GetAll());
@@ -71,6 +71,6 @@ namespace ProjectClientServer.Controllers
         {
             repository.Delete(id);
             return RedirectToAction("Index");
-        }
+        }*/
     }
 }

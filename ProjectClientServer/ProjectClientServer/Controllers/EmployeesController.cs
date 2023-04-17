@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProjectClientServer.Contexts;
 using ProjectClientServer.Models;
-using ProjectClientServer.Repositories;
 
 namespace ProjectClientServer.Controllers
 {
@@ -16,23 +15,21 @@ namespace ProjectClientServer.Controllers
     public class EmployeesController : ControllerBase
     {
         private readonly MyContext _context;
-        private readonly EmployeeRepository _employeeRepository;
 
-        public EmployeesController(MyContext context, EmployeeRepository employeeRepository)
+        public EmployeesController(MyContext context)
         {
             _context = context;
-            _employeeRepository = employeeRepository;
         }
 
         // GET: api/Employees
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Employee>>> GetTbMEmployees()
         {
-            if (_context.TbMEmployees == null)
-            {
-                return NotFound();
-            }
-              return await _context.TbMEmployees.ToListAsync();
+          if (_context.TbMEmployees == null)
+          {
+              return NotFound();
+          }
+            return await _context.TbMEmployees.ToListAsync();
         }
 
         // GET: api/Employees/5
@@ -110,7 +107,7 @@ namespace ProjectClientServer.Controllers
                 }
             }
 
-            return CreatedAtAction(nameof(GetEmployee), new { id = employee.Nik }, employee);
+            return CreatedAtAction("GetEmployee", new { id = employee.Nik }, employee);
         }
 
         // DELETE: api/Employees/5

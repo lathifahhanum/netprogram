@@ -1,116 +1,111 @@
 ﻿using ProjectClientServer.Contexts;
+using ProjectClientServer.Handler;
 using ProjectClientServer.Models;
 using ProjectClientServer.Repositories.Contract;
+using ProjectClientServer.ViewModel;
 
 namespace ProjectClientServer.Repositories
 {
-    public class AccountRepository : GeneralRepository<Account, string, MyContext>
+    public class AccountRepository : GeneralRepository<Account, string, MyContext>, IAccountRepository
     {
-
-        public AccountRepository(MyContext context) : base(context)
+        private readonly IUniversityRepository _universityRepository;
+        private readonly IEducationRepository _educationRepository;
+        private readonly IEmployeeRepository _employeeRepository;
+        private readonly IProfilingRepository _profilingRepository;
+        private readonly IAccountRoleRepository _accountRoleRepository;
+        public AccountRepository(
+            MyContext context, 
+            IUniversityRepository universityRepository, 
+            IEducationRepository educationRepository, 
+            IEmployeeRepository employeeRepository, 
+            IProfilingRepository profilingRepository, 
+            IAccountRoleRepository accountRoleRepository) : base(context)
         {
+            _universityRepository = universityRepository;
+            _educationRepository = educationRepository;
+            _employeeRepository = employeeRepository;
+            _profilingRepository = profilingRepository;
+            _accountRoleRepository = accountRoleRepository;
         }
 
-        /*public int Register(RegisterVM registerVM) 
+        public async Task<bool> LoginAsync(LoginVM loginVM)
         {
-            using var transaction = _context.Database.BeginTransaction();
+            var getEmployees = await _employeeRepository.GetAllAsync();
+            var getAccounts = await GetAllAsync();
+
+            var getUserData = getEmployees.Join(getAccounts,
+                                                e => e.Nik,
+                                                a => a.EmployeeNik,
+                                                (e, a) => new LoginVM
+                                                {
+                                                    Email = e.Email,
+                                                    Password = a.Password
+                                                })
+                                          .FirstOrDefault(ud => ud.Email == loginVM.Email);
+
+            return getUserData is not null && Hashing.ValidatePassword(loginVM.Password, getUserData.Password);
+        }
+
+        public async Task RegisterAsync(RegisterVM registerVM)
+        {
+            await using var transaction = await _context.Database.BeginTransactionAsync();
             try
             {
-                
-                var university = new University
+                var university = await _universityRepository.InsertAsync(new University
                 {
-                    Name = registerVM.UniversityName,
-                };
-                if (_context.Universities.Any(u => u.Name == university.Name)) {
-                    university.Id = _context.Universities
-                        .FirstOrDefault(u => u.Name == university.Name)!
-                        .Id;
+                    Name = registerVM.UniversityName
+                });
+
+                /*if(await _universityRepository.IsNameExist(registerVM.UniversityName)){
+
                 }
                 else
                 {
-                    _context.Universities.Add(university);
-                    _context.SaveChanges();
-                }
-                
+                    await _universityRepository.InsertAsync(university);
+                }*/
 
-                var education = new Education
+                var education = await _educationRepository.InsertAsync(new Education
                 {
                     Major = registerVM.Major,
                     Degree = registerVM.Degree,
                     Gpa = registerVM.Gpa,
                     UniversityId = university.Id,
-                };
-                _context.Educations.Add(education);
-                _context.SaveChanges();
+                });
 
-                var employee = new Employee
+                var employee = await _employeeRepository.InsertAsync(new Employee
                 {
                     Nik = registerVM.Nik,
                     FirstName = registerVM.FirstName,
                     LastName = registerVM.LastName,
-                    BirthDate = registerVM.BirthDate,
+                    Birthdate = registerVM.BirthDate,
                     Gender = registerVM.Gender,
                     PhoneNumber = registerVM.PhoneNumber,
                     Email = registerVM.Email,
                     HiringDate = DateTime.Now,
-                };
+                });
 
-                _context.Employees.Add(employee);
-                _context.SaveChanges();
-
-                var account = new Account
+                await InsertAsync(new Account
                 {
-                    EmployeeNik = registerVM.Nik,
+                    EmployeeNik = employee!.Nik,
                     Password = Hashing.HashPassword(registerVM.Password),
-                };
-                _context.Accounts.Add(account);
-                _context.SaveChanges();
+                });
 
-                var profiling = new Profiling
+                var profiling = await _profilingRepository.InsertAsync(new Profiling
                 {
                     EmployeeNik = registerVM.Nik,
-                    EducationId = education.Id,
-                };
-                _context.Profilings.Add(profiling);
-                _context.SaveChanges();
+                    EducationId = education!.Id,
+                });
 
-                var accountRole = new AccountRole
+                var accountRole = await _accountRoleRepository.InsertAsync(new AccountRole
                 {
                     AccountNik = registerVM.Nik,
                     RoleId = 2,
-                };
-                _context.AccountRoles.Add(accountRole);
-                _context.SaveChanges();
+                });
 
-                transaction.Commit();
-                return 1;
-            } catch(Exception)
-            {
-                transaction.Rollback();
-                return 0;
+                await transaction.CommitAsync();
+            } catch{
+                await transaction.RollbackAsync();
             }
         }
-
-        public bool Login(LoginVM loginVM)
-        {
-            
-            /*var login = (from e in _context.Employees
-                        join a in _context.Accounts
-                        on e.Nik equals a.EmployeeNik
-                        select new
-                        {
-                            Email = e.Email,
-                            Password = a.Password,
-                        }).FirstOrDefault(e => e.Email == loginVM.Email && e.Password == loginVM.Password);*/
-
-            /*var login = _context.Employees.Join(_context.Accounts, e => e.Nik, a => a.EmployeeNik, (e,a) => new LoginVM
-            {
-                Email = e.Email,
-                Password = a.Password,
-            }).FirstOrDefault(e => e.Email == loginVM.Email);
-
-            return login is not null && Hashing.ValidatePassword(loginVM.Password, login.Password);
-            
-        }*/
     }
 }

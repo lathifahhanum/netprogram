@@ -7,6 +7,7 @@ D:\FGA\DTS Fullstack Developer\Basic Programming\net project\ProjectClientServer
 D:\FGA\DTS Fullstack Developer\Basic Programming\net project\ProjectClientServer\ProjectClientServer\bin\Debug\net6.0\ProjectClientServer.pdb
 D:\FGA\DTS Fullstack Developer\Basic Programming\net project\ProjectClientServer\ProjectClientServer\bin\Debug\net6.0\Azure.Core.dll
 D:\FGA\DTS Fullstack Developer\Basic Programming\net project\ProjectClientServer\ProjectClientServer\bin\Debug\net6.0\Azure.Identity.dll
+D:\FGA\DTS Fullstack Developer\Basic Programming\net project\ProjectClientServer\ProjectClientServer\bin\Debug\net6.0\BCrypt.Net-Next.dll
 D:\FGA\DTS Fullstack Developer\Basic Programming\net project\ProjectClientServer\ProjectClientServer\bin\Debug\net6.0\Humanizer.dll
 D:\FGA\DTS Fullstack Developer\Basic Programming\net project\ProjectClientServer\ProjectClientServer\bin\Debug\net6.0\MessagePack.dll
 D:\FGA\DTS Fullstack Developer\Basic Programming\net project\ProjectClientServer\ProjectClientServer\bin\Debug\net6.0\MessagePack.Annotations.dll
@@ -273,6 +274,8 @@ D:\FGA\DTS Fullstack Developer\Basic Programming\net project\ProjectClientServer
 D:\FGA\DTS Fullstack Developer\Basic Programming\net project\ProjectClientServer\ProjectClientServer\obj\Debug\net6.0\ProjectClientServer.csproj.CoreCompileInputs.cache
 D:\FGA\DTS Fullstack Developer\Basic Programming\net project\ProjectClientServer\ProjectClientServer\obj\Debug\net6.0\ProjectClientServer.MvcApplicationPartsAssemblyInfo.cs
 D:\FGA\DTS Fullstack Developer\Basic Programming\net project\ProjectClientServer\ProjectClientServer\obj\Debug\net6.0\ProjectClientServer.MvcApplicationPartsAssemblyInfo.cache
+D:\FGA\DTS Fullstack Developer\Basic Programming\net project\ProjectClientServer\ProjectClientServer\obj\Debug\net6.0\ProjectClientServer.RazorAssemblyInfo.cache
+D:\FGA\DTS Fullstack Developer\Basic Programming\net project\ProjectClientServer\ProjectClientServer\obj\Debug\net6.0\ProjectClientServer.RazorAssemblyInfo.cs
 D:\FGA\DTS Fullstack Developer\Basic Programming\net project\ProjectClientServer\ProjectClientServer\obj\Debug\net6.0\staticwebassets\msbuild.ProjectClientServer.Microsoft.AspNetCore.StaticWebAssets.props
 D:\FGA\DTS Fullstack Developer\Basic Programming\net project\ProjectClientServer\ProjectClientServer\obj\Debug\net6.0\staticwebassets\msbuild.build.ProjectClientServer.props
 D:\FGA\DTS Fullstack Developer\Basic Programming\net project\ProjectClientServer\ProjectClientServer\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.ProjectClientServer.props
@@ -287,5 +290,3 @@ D:\FGA\DTS Fullstack Developer\Basic Programming\net project\ProjectClientServer
 D:\FGA\DTS Fullstack Developer\Basic Programming\net project\ProjectClientServer\ProjectClientServer\obj\Debug\net6.0\ProjectClientServer.pdb
 D:\FGA\DTS Fullstack Developer\Basic Programming\net project\ProjectClientServer\ProjectClientServer\obj\Debug\net6.0\ProjectClientServer.genruntimeconfig.cache
 D:\FGA\DTS Fullstack Developer\Basic Programming\net project\ProjectClientServer\ProjectClientServer\obj\Debug\net6.0\ref\ProjectClientServer.dll
-D:\FGA\DTS Fullstack Developer\Basic Programming\net project\ProjectClientServer\ProjectClientServer\obj\Debug\net6.0\ProjectClientServer.RazorAssemblyInfo.cache
-D:\FGA\DTS Fullstack Developer\Basic Programming\net project\ProjectClientServer\ProjectClientServer\obj\Debug\net6.0\ProjectClientServer.RazorAssemblyInfo.cs

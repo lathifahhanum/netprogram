@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace ProjectClientServer.Models;
 
@@ -15,7 +16,9 @@ public partial class Education
 
     public int UniversityId { get; set; }
 
+    [JsonIgnore]
     public virtual Profiling? TbTrProfiling { get; set; }
 
+    [JsonIgnore]
     public virtual University University { get; set; } = null!;
 }

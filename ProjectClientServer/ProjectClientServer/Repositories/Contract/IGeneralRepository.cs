@@ -4,11 +4,12 @@
         where TEntity : class
         
     {
-        Task<IEnumerable<TEntity>> GetAll();
-        Task<TEntity?> GetById(TKey key);
-        Task<int> Insert(TEntity entity);
-        Task<int> Update(TEntity entity);
-        Task<int> Delete(TKey key);
+        Task<IEnumerable<TEntity>> GetAllAsync();
+        Task<TEntity?> GetByIdAsync(TKey key);
+        Task<TEntity?> InsertAsync(TEntity entity);
+        Task UpdateAsync(TEntity entity);
+        Task DeleteAsync(TKey key);
+        Task<bool> IsExist(TKey key);
 
     }
 }

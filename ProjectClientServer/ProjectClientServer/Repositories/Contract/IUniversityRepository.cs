@@ -4,11 +4,7 @@ namespace ProjectClientServer.Repositories.Contract
 {
     public interface IUniversityRepository:IGeneralRepository<University, int>
     {
-        /*IEnumerable<University> GetAll();//kbthannya hy utk read saja, IEnum lebih ringan
-        University? GetById(int id);
-        IEnumerable<University> Search(string name);
-        int Insert(University university);
-        int Update(University university);
-        int Delete(int id);*/
+        Task<University?> GetByNameAsync(string name);
+        Task<bool> IsNameExistAsync(string name);
     }
 }
