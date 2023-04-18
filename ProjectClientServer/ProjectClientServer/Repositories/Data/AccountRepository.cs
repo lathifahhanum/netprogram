@@ -55,7 +55,7 @@ namespace ProjectClientServer.Repositories
                 {
                     Name = registerVM.UniversityName
                 };
-                await _universityRepository.InsertAsync(university);
+                //await _universityRepository.InsertAsync(university);
 
                 if (await _universityRepository.IsNameExistAsync(registerVM.UniversityName))
                 {
