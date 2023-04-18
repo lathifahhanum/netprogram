@@ -44,7 +44,7 @@ namespace ProjectClientServer.Controllers
         }
 
         [HttpGet("{nik}")]
-        public async Task<ActionResult> GetByName(string nik)
+        public async Task<ActionResult> GetById(string nik)
         {
             var results = await _profilingRepository.GetByIdAsync(nik);
             if (results == null)
@@ -74,13 +74,13 @@ namespace ProjectClientServer.Controllers
             var results = await _profilingRepository.InsertAsync(profiling);
             if (results == null)
             {
-                return NotFound(new
+                return Conflict(new
                 {
-                    code = StatusCodes.Status404NotFound,
+                    code = StatusCodes.Status409Conflict,
                     status = HttpStatusCode.NotFound.ToString(),
                     data = new
                     {
-                        message = "Data Not Found!"
+                        message = "cannot insert data!"
                     }
                 });
             }
@@ -100,15 +100,36 @@ namespace ProjectClientServer.Controllers
         [HttpPut]
         public async Task<ActionResult> Update(Profiling profiling)
         {
-            var update = _profilingRepository.UpdateAsync(profiling);
-            return Ok(update);
+            var results = await _profilingRepository.UpdateAsync(profiling);
+            if (results == 0)
+            {
+                return NotFound(new
+                {
+                    code = StatusCodes.Status404NotFound,
+                    status = HttpStatusCode.NotFound.ToString(),
+                    data = new
+                    {
+                        message = "Data Not Found!"
+                    }
+                });
+            }
+            return Ok(new
+            {
+                code = StatusCodes.Status200OK,
+                status = HttpStatusCode.OK.ToString(),
+                data = new
+                {
+                    message = "Update success",
+                    results
+                }
+            });
         }
 
         [HttpDelete("{nik}")]
         public async Task<ActionResult> Delete(string nik)
         {
-            var results = _profilingRepository.DeleteAsync(nik);
-            if (results == null)
+            var results = await _profilingRepository.DeleteAsync(nik);
+            if (results == 0)
             {
                 return NotFound(new
                 {

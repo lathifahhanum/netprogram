@@ -65,17 +65,17 @@ namespace ProjectClientServer.Repositories
             return entity;
         }
 
-        public async Task UpdateAsync(TEntity entity)
+        public async Task<int> UpdateAsync(TEntity entity)
         {
             _context.Set<TEntity>().Update(entity);
-            await _context.SaveChangesAsync();
+            return await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(TKey key)
+        public async Task<int> DeleteAsync(TKey key)
         {
             var entity = await GetByIdAsync(key);
             _context.Set<TEntity>().Remove(entity!);
-            await _context.SaveChangesAsync();
+            return await _context.SaveChangesAsync();
         }
 
         public virtual async Task<bool> IsExist(TKey key)

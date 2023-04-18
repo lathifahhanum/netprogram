@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using NuGet.Protocol.Core.Types;
+using NuGet.Protocol.Plugins;
 using ProjectClientServer.Models;
 using ProjectClientServer.Repositories;
 using ProjectClientServer.Repositories.Contract;
@@ -19,33 +21,35 @@ namespace ProjectClientServer.Controllers
             _accountRepository = accountRepository;
         }
 
-        /*[HttpPost]
-        public async Task<IActionResult> Register()
+        [HttpPost("Login")]
+        public async Task<ActionResult> Login(LoginVM loginVM)
         {
-            var result = await _accountRepository.GetAllAsync();
-            if (result == null)
+            var login = await _accountRepository.LoginAsync(loginVM);
+            if (login)
             {
-                return NotFound(new
-                {
-                    code = StatusCodes.Status404NotFound,
-                    status = HttpStatusCode.NotFound.ToString(),
-                    data = new
-                    {
-                        message = "Data Not Found!"
-                    }
-                });
+                return Ok("Login success");
+            }
+            else { return BadRequest("Login gagal"); }
+
+        }
+
+        [HttpPost("Register")]
+        public async Task<ActionResult> Register(RegisterVM registerVM)
+        {
+            try
+            {
+                await _accountRepository.RegisterAsync(registerVM);
+                return Ok("registrasi success");
+            }
+            catch
+            {
+                return BadRequest("registrasi gagal");
             }
 
-            return Ok(new
-            {
-                code = StatusCodes.Status200OK,
-                status = HttpStatusCode.OK.ToString(),
-                data = new
-                {
-                    message = "Insert Success"
-                }
-            });
-        }*/
+            //return register is null ? NotFound(new { status = HttpStatusCode.NotFound, message = "register gagal." }) 
+            //  : Ok(new {status = HttpStatusCode.OK, message = "register berhasil." });
+
+        }
 
         [HttpGet]
         public async Task<ActionResult> Get()
@@ -103,13 +107,13 @@ namespace ProjectClientServer.Controllers
             var results = await _accountRepository.InsertAsync(account);
             if (results == null)
             {
-                return NotFound(new
+                return Conflict(new
                 {
-                    code = StatusCodes.Status404NotFound,
+                    code = StatusCodes.Status409Conflict,
                     status = HttpStatusCode.NotFound.ToString(),
                     data = new
                     {
-                        message = "Data Not Found!"
+                        message = "cannot insert data!"
                     }
                 });
             }
@@ -129,15 +133,36 @@ namespace ProjectClientServer.Controllers
         [HttpPut]
         public async Task<ActionResult> Update(Account account)
         {
-            var update = _accountRepository.UpdateAsync(account);
-            return Ok(update);
+            var results = await _accountRepository.UpdateAsync(account);
+            if (results == 0)
+            {
+                return NotFound(new
+                {
+                    code = StatusCodes.Status404NotFound,
+                    status = HttpStatusCode.NotFound.ToString(),
+                    data = new
+                    {
+                        message = "Data Not Found!"
+                    }
+                });
+            }
+            return Ok(new
+            {
+                code = StatusCodes.Status200OK,
+                status = HttpStatusCode.OK.ToString(),
+                data = new
+                {
+                    message = "Update success",
+                    results
+                }
+            });
         }
 
         [HttpDelete("{nik}")]
         public async Task<ActionResult> Delete(string nik)
         {
-            var results = _accountRepository.DeleteAsync(nik);
-            if (results == null)
+            var results = await _accountRepository.DeleteAsync(nik);
+            if (results == 0)
             {
                 return NotFound(new
                 {

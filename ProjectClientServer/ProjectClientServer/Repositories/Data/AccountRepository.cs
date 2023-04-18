@@ -51,56 +51,63 @@ namespace ProjectClientServer.Repositories
             await using var transaction = await _context.Database.BeginTransactionAsync();
             try
             {
-                var university = await _universityRepository.InsertAsync(new University
+                var university = new University
                 {
                     Name = registerVM.UniversityName
-                });
+                };
+                await _universityRepository.InsertAsync(university);
 
-                /*if(await _universityRepository.IsNameExist(registerVM.UniversityName)){
+                if (await _universityRepository.IsNameExistAsync(registerVM.UniversityName))
+                {
 
                 }
                 else
                 {
                     await _universityRepository.InsertAsync(university);
-                }*/
+                }
 
-                var education = await _educationRepository.InsertAsync(new Education
+                var education = new Education
                 {
                     Major = registerVM.Major,
                     Degree = registerVM.Degree,
                     Gpa = registerVM.Gpa,
                     UniversityId = university.Id,
-                });
+                };
+                await _educationRepository.InsertAsync(education);
 
-                var employee = await _employeeRepository.InsertAsync(new Employee
+                var employee = new Employee
                 {
                     Nik = registerVM.Nik,
                     FirstName = registerVM.FirstName,
                     LastName = registerVM.LastName,
                     Birthdate = registerVM.BirthDate,
-                    Gender = registerVM.Gender,
-                    PhoneNumber = registerVM.PhoneNumber,
                     Email = registerVM.Email,
+                    PhoneNumber = registerVM.PhoneNumber,
+                    Gender = registerVM.Gender,
                     HiringDate = DateTime.Now,
-                });
+                };
+                await _employeeRepository.InsertAsync(employee);
 
-                await InsertAsync(new Account
+                var account = new Account
                 {
                     EmployeeNik = employee!.Nik,
                     Password = Hashing.HashPassword(registerVM.Password),
-                });
+                };
+                await InsertAsync(account);
 
-                var profiling = await _profilingRepository.InsertAsync(new Profiling
+                var profiling = new Profiling
                 {
-                    EmployeeNik = registerVM.Nik,
+                    EmployeeNik = employee.Nik,
                     EducationId = education!.Id,
-                });
+                };
+                await _profilingRepository.InsertAsync(profiling);
 
-                var accountRole = await _accountRoleRepository.InsertAsync(new AccountRole
+                var accountRole = new AccountRole
                 {
                     AccountNik = registerVM.Nik,
                     RoleId = 2,
-                });
+                };
+                await _accountRoleRepository.InsertAsync(accountRole);
 
                 await transaction.CommitAsync();
             } catch{

@@ -78,13 +78,13 @@ namespace ProjectClientServer.Controllers
             var results = await _employeeRepository.InsertAsync(employee);
             if (results == null)
             {
-                return NotFound(new
+                return Conflict(new
                 {
-                    code = StatusCodes.Status404NotFound,
+                    code = StatusCodes.Status409Conflict,
                     status = HttpStatusCode.NotFound.ToString(),
                     data = new
                     {
-                        message = "Data Not Found!"
+                        message = "cannot insert data!"
                     }
                 });
             }
@@ -104,15 +104,36 @@ namespace ProjectClientServer.Controllers
         [HttpPut]
         public async Task<ActionResult> Update(Employee employee)
         {
-            var update = _employeeRepository.UpdateAsync(employee);
-            return Ok(update);
+            var results = await _employeeRepository.UpdateAsync(employee);
+            if (results == 0)
+            {
+                return NotFound(new
+                {
+                    code = StatusCodes.Status404NotFound,
+                    status = HttpStatusCode.NotFound.ToString(),
+                    data = new
+                    {
+                        message = "Data Not Found!"
+                    }
+                });
+            }
+            return Ok(new
+            {
+                code = StatusCodes.Status200OK,
+                status = HttpStatusCode.OK.ToString(),
+                data = new
+                {
+                    message = "Update success",
+                    results
+                }
+            });
         }
 
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(string id)
         {
-            var results = _employeeRepository.DeleteAsync(id);
-            if (results == null)
+            var results = await _employeeRepository.DeleteAsync(id);
+            if (results == 0)
             {
                 return NotFound(new
                 {

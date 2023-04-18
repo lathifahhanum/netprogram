@@ -44,7 +44,7 @@ namespace ProjectClientServer.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult> GetByName(int id)
+        public async Task<ActionResult> GetById(int id)
         {
             var results = await _educationRepository.GetByIdAsync(id);
             if (results == null)
@@ -74,13 +74,13 @@ namespace ProjectClientServer.Controllers
             var results = await _educationRepository.InsertAsync(education);
             if (results == null)
             {
-                return NotFound(new
+                return Conflict(new
                 {
-                    code = StatusCodes.Status404NotFound,
+                    code = StatusCodes.Status409Conflict,
                     status = HttpStatusCode.NotFound.ToString(),
                     data = new
                     {
-                        message = "Data Not Found!"
+                        message = "cannot insert data!"
                     }
                 });
             }
@@ -100,15 +100,36 @@ namespace ProjectClientServer.Controllers
         [HttpPut]
         public async Task<ActionResult> Update(Education education)
         {
-            var update = _educationRepository.UpdateAsync(education);
-            return Ok(update);
+            var results = await _educationRepository.UpdateAsync(education);
+            if (results == 0)
+            {
+                return NotFound(new
+                {
+                    code = StatusCodes.Status404NotFound,
+                    status = HttpStatusCode.NotFound.ToString(),
+                    data = new
+                    {
+                        message = "Data Not Found!"
+                    }
+                });
+            }
+            return Ok(new
+            {
+                code = StatusCodes.Status200OK,
+                status = HttpStatusCode.OK.ToString(),
+                data = new
+                {
+                    message = "Update success",
+                    results
+                }
+            });
         }
 
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {
-            var results = _educationRepository.DeleteAsync(id);
-            if (results == null)
+            var results = await _educationRepository.DeleteAsync(id);
+            if (results == 0)
             {
                 return NotFound(new
                 {
