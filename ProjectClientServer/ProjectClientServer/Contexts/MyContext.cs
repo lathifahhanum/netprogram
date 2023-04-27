@@ -181,13 +181,13 @@ public partial class MyContext : DbContext
             entity.HasOne(d => d.EmployeeNikNavigation).WithOne(p => p.TbTrProfiling).HasForeignKey<Profiling>(d => d.EmployeeNik);
         });
 
-        /*modelBuilder.Entity<EmployeeVM>()
-            .HasNoKey();*/
+        modelBuilder.Entity<UserDataVM>()
+            .HasNoKey();
 
         OnModelCreatingPartial(modelBuilder);
     }
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 
-    public DbSet<ProjectClientServer.ViewModel.EmployeeVM>? EmployeeVM { get; set; }
+    public DbSet<ProjectClientServer.ViewModel.UserDataVM>? EmployeeVM { get; set; }
 }

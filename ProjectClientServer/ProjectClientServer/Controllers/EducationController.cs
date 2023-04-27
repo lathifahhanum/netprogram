@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProjectClientServer.Models;
 using ProjectClientServer.Repositories;
@@ -7,6 +8,7 @@ using System.Net;
 
 namespace ProjectClientServer.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class EducationController : ControllerBase
@@ -18,6 +20,7 @@ namespace ProjectClientServer.Controllers
             _educationRepository = educationRepository;
         }
 
+        [Authorize(Roles = "User")]
         [HttpGet]
         public async Task<ActionResult> Get()
         {
@@ -43,6 +46,7 @@ namespace ProjectClientServer.Controllers
             });
         }
 
+        [Authorize(Roles = "User")]
         [HttpGet("{id}")]
         public async Task<ActionResult> GetById(int id)
         {
@@ -68,6 +72,7 @@ namespace ProjectClientServer.Controllers
             });
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<ActionResult<Education?>> Insert(Education education)
         {
@@ -97,6 +102,7 @@ namespace ProjectClientServer.Controllers
             });
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut]
         public async Task<ActionResult> Update(Education education)
         {
@@ -125,6 +131,7 @@ namespace ProjectClientServer.Controllers
             });
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {

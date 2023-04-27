@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "CSarZiOfe3Jr7Zi2rJU5BdxSmbBGTFr0hFS314OgyX5ie021ZZCoHjgC2ipN0BcFwTadYpxnC57Yn3UuHuQ5AQ==",
+  "dgSpecHash": "ChP61areYShJfYUdvsksm5ntsGl3EEmM8wUTBDVT+P3N8y30Gg3zrVSLYEYVGrlL/MaAiyvC0gTMdyFHLTWyWg==",
   "success": true,
-  "projectFilePath": "D:\\FGA\\DTS Fullstack Developer\\Basic Programming\\net project\\ProjectClientServer\\ProjectClientServer\\ProjectClientServer.csproj",
+  "projectFilePath": "D:\\FGA\\DTS Fullstack Developer\\Basic Programming\\ProjectClientServer\\ProjectClientServer\\ProjectClientServer.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Lathifah Hanum\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\Lathifah Hanum\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",

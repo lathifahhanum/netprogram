@@ -1,14 +1,13 @@
 ﻿using ProjectClientServer.Models;
+using ProjectClientServer.ViewModel;
+using System.Collections;
 
 namespace ProjectClientServer.Repositories.Contract
 {
     public interface IProfilingRepository:IGeneralRepository<Profiling, string>
     {
-        /*IEnumerable<Profiling> GetAll();
-        Profiling? GetById(string id);
-        IEnumerable<Profiling> Search(string id);
-        int Insert(Profiling profiling);
-        int Update(Profiling profiling);
-        int Delete(string id);*/
+        Task<IEnumerable<AvgGpaVM>> GetAvgGpa(int tahun);
+        Task<IEnumerable> TotalByMajor();
+        Task<IEnumerable> WorkPeriod();
     }
 }

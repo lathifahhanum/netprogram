@@ -2,7 +2,7 @@
 using ProjectClientServer.Models;
 using ProjectClientServer.Repositories.Contract;
 
-namespace ProjectClientServer.Repositories
+namespace ProjectClientServer.Repositories.Data
 {
     public class RoleRepository : GeneralRepository<Role, int, MyContext>, IRoleRepository
     {

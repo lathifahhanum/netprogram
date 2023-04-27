@@ -9,25 +9,9 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = ProjectClientServer
 build_property.RootNamespace = ProjectClientServer
-build_property.ProjectDir = D:\FGA\DTS Fullstack Developer\Basic Programming\net project\ProjectClientServer\ProjectClientServer\
+build_property.ProjectDir = D:\FGA\DTS Fullstack Developer\Basic Programming\ProjectClientServer\ProjectClientServer\
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = D:\FGA\DTS Fullstack Developer\Basic Programming\net project\ProjectClientServer\ProjectClientServer
+build_property.MSBuildProjectDirectory = D:\FGA\DTS Fullstack Developer\Basic Programming\ProjectClientServer\ProjectClientServer
 build_property._RazorSourceGeneratorDebug = 
-
-[D:/FGA/DTS Fullstack Developer/Basic Programming/net project/ProjectClientServer/ProjectClientServer/Views/Employee/GetTenure.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZWVcR2V0VGVudXJlLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/FGA/DTS Fullstack Developer/Basic Programming/net project/ProjectClientServer/ProjectClientServer/Views/Employee/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZWVcSW5kZXguY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/FGA/DTS Fullstack Developer/Basic Programming/net project/ProjectClientServer/ProjectClientServer/Views/Shared/_ValidationScriptsPartial.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/FGA/DTS Fullstack Developer/Basic Programming/net project/ProjectClientServer/ProjectClientServer/Views/University/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVW5pdmVyc2l0eVxJbmRleC5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 

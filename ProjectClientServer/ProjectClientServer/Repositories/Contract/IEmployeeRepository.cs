@@ -7,7 +7,7 @@ namespace ProjectClientServer.Repositories.Contract
 {
     public interface IEmployeeRepository:IGeneralRepository<Employee, string>
     {
-        IEnumerable<EmployeeVM> GetAllTenure();
-        EmployeeVM? GetTenureId(int id);
+        Task<UserDataVM?> GetUserByEmail(string email);
+        Task<IEnumerable> MasterData();
     }
 }

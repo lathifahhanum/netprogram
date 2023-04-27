@@ -3,7 +3,7 @@ using ProjectClientServer.Contexts;
 using ProjectClientServer.Models;
 using ProjectClientServer.Repositories.Contract;
 
-namespace ProjectClientServer.Repositories
+namespace ProjectClientServer.Repositories.Data
 {
     public class UniversityRepository : GeneralRepository<University, int, MyContext>, IUniversityRepository
     {

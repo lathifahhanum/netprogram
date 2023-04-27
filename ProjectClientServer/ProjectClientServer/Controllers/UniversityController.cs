@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProjectClientServer.Models;
 using ProjectClientServer.Repositories.Contract;
@@ -6,8 +7,10 @@ using System.Net;
 
 namespace ProjectClientServer.Controllers
 {
+    
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "User")]
     public class UniversityController : Controller
     {
         private readonly IUniversityRepository _universityRepository;

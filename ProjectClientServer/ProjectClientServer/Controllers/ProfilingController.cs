@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using ProjectClientServer.Models;
 using ProjectClientServer.Repositories;
 using ProjectClientServer.Repositories.Contract;
+using ProjectClientServer.Repositories.Data;
 using System.Net;
 
 namespace ProjectClientServer.Controllers
@@ -151,6 +152,46 @@ namespace ProjectClientServer.Controllers
                     message = "Delete suscess"
                 }
             });
+        }
+
+        [HttpGet("AvgGPA/{tahun}")]
+        public async Task<ActionResult> GetAvgGpa(int tahun)
+        {
+            
+            var get = await _profilingRepository.GetAvgGpa(tahun);
+            return Ok(new
+            {
+                code = StatusCodes.Status200OK,
+                status = HttpStatusCode.OK.ToString(),
+                data = get
+            });
+                
+                //get == null ? NotFound(new { message = "Data not found" }) : Ok(_profilingRepository.GetAvgGpa(tahun));
+            
+        }
+
+        [HttpGet("TotalByMajor")]
+        public async Task<ActionResult> GetTotalByMajor()
+        {
+            var get = await _profilingRepository.TotalByMajor();
+            return Ok(new
+            {
+                code = StatusCodes.Status200OK,
+                status = HttpStatusCode.OK.ToString(),
+                data = get
+            });
+        }
+
+        [HttpGet("WorkPeriod")]
+        public async Task<ActionResult> GetWorkPeriod()
+        {
+                var get = await _profilingRepository.WorkPeriod();
+                return Ok(new
+                {
+                    code = StatusCodes.Status200OK,
+                    status = HttpStatusCode.OK.ToString(),
+                    data = get
+                });
         }
     }
 }

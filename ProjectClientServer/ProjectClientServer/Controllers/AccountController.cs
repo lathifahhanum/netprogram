@@ -1,40 +1,98 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NuGet.Protocol.Core.Types;
 using NuGet.Protocol.Plugins;
+using ProjectClientServer.Handler;
 using ProjectClientServer.Models;
 using ProjectClientServer.Repositories;
 using ProjectClientServer.Repositories.Contract;
 using ProjectClientServer.ViewModel;
 using System.Net;
+using System.Security.Claims;
 
 namespace ProjectClientServer.Controllers
 {
+    
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Admin")]
     public class AccountController : ControllerBase
     {
         private readonly IAccountRepository _accountRepository;
+        private readonly IEmployeeRepository _employeeRepository;
+        private readonly IAccountRoleRepository _accountRoleRepository;
+        private readonly ITokenService _tokenService;
 
-        public AccountController(IAccountRepository accountRepository)
+        public AccountController(IAccountRepository accountRepository, IEmployeeRepository employeeRepository, IAccountRoleRepository accountRoleRepository, ITokenService tokenService)
         {
             _accountRepository = accountRepository;
+            _employeeRepository = employeeRepository;
+            _accountRoleRepository = accountRoleRepository;
+            _tokenService = tokenService;
         }
 
-        [HttpPost("Login")]
-        public async Task<ActionResult> Login(LoginVM loginVM)
+        [AllowAnonymous]
+        [HttpPost("Auth")]
+        public async Task<ActionResult<Account>> Login(LoginVM loginVM)
         {
-            var login = await _accountRepository.LoginAsync(loginVM);
-            if (login)
+            try
             {
-                return Ok("Login success");
-            }
-            else { return BadRequest("Login gagal"); }
+                var login = await _accountRepository.LoginAsync(loginVM);
+                if (!login)
+                {
+                    return NotFound();
+                }
 
+                var user = await _employeeRepository.GetUserByEmail(loginVM.Email);
+                var claims = new List<Claim>()
+                {
+                    new Claim(ClaimTypes.Email, user.Email),
+                    new Claim(ClaimTypes.Name, user.Email),
+                    new Claim(ClaimTypes.NameIdentifier, user.FullName),
+                    new Claim("NIK", user.Nik)
+                };
+
+                var getRole = await _accountRoleRepository.GetRolesByNikAsync(user.Nik);
+                
+                foreach (var item in getRole)
+                {
+                    claims.Add(new Claim(ClaimTypes.Role, item));
+                }
+
+                var accessToken = _tokenService.GenerateAccessToken(claims);
+                //return Ok(accessToken);
+
+                var refreshToken = _tokenService.GenerateRefreshToken();
+                //return Ok(refreshToken);
+
+                var generatedToken = new
+                {
+                    Token = accessToken,
+                    RefreshToken = refreshToken,
+                    TokenType = "Bearer"
+                };
+
+                return Ok(generatedToken);
+            }
+            catch
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                              new
+                              {
+                                  Code = StatusCodes.Status500InternalServerError,
+                                  Status = "Internal Server Error",
+                                  Errors = new
+                                  {
+                                      Message = "Invalid Salt Version"
+                                  },
+                              });
+            }
         }
 
+        [AllowAnonymous]
         [HttpPost("Register")]
-        public async Task<ActionResult> Register(RegisterVM registerVM)
+        public async Task<ActionResult<Account>> Register(RegisterVM registerVM)
         {
             try
             {

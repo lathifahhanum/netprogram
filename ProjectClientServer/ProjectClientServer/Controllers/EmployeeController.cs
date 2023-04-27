@@ -157,5 +157,18 @@ namespace ProjectClientServer.Controllers
             });
         }
 
+        [HttpGet("Master")]
+        public async Task<ActionResult> GetMasterData()
+        {
+            try
+            {
+                var get = await _employeeRepository.MasterData();
+                return get == null ? NotFound(new { message = "Data not found" }) : Ok(_employeeRepository.MasterData());
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
     }
 }

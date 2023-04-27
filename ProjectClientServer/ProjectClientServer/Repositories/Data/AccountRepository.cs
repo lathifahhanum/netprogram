@@ -4,7 +4,7 @@ using ProjectClientServer.Models;
 using ProjectClientServer.Repositories.Contract;
 using ProjectClientServer.ViewModel;
 
-namespace ProjectClientServer.Repositories
+namespace ProjectClientServer.Repositories.Data
 {
     public class AccountRepository : GeneralRepository<Account, string, MyContext>, IAccountRepository
     {
