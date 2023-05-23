@@ -45,10 +45,10 @@ namespace ProjectClientServer.Controllers
             });
         }
 
-        [HttpGet("{name}")]
-        public async Task<ActionResult> GetByName(string name)
+        [HttpGet("{id}")]
+        public async Task<ActionResult> GetByName(int id)
         {
-            var results = await _universityRepository.GetByNameAsync(name);
+            var results = await _universityRepository.GetByIdAsync(id);
             if (results == null)
             {
                 return NotFound(new
@@ -102,8 +102,7 @@ namespace ProjectClientServer.Controllers
         [HttpPut]
         public async Task<ActionResult> Update(University university)
         {
-
-            var results = await _universityRepository.UpdateAsync(university);
+            var results = await _universityRepository.UpdateAsync2(university);
             if (results == 0)
             {
                 return NotFound(new
@@ -131,19 +130,19 @@ namespace ProjectClientServer.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {
-            var results = await _universityRepository.DeleteAsync(id);
-            if (results == 0)
-            {
-                return NotFound(new
-                {
-                    code = StatusCodes.Status404NotFound,
-                    status = HttpStatusCode.NotFound.ToString(),
-                    data = new
-                    {
-                        message = "Data Not Found!"
-                    }
-                });
-            }
+            await _universityRepository.DeleteAsync(id);
+            //if (results == 0)
+            //{
+            //    return NotFound(new
+            //    {
+            //        code = StatusCodes.Status404NotFound,
+            //        status = HttpStatusCode.NotFound.ToString(),
+            //        data = new
+            //        {
+            //            message = "Data Not Found!"
+            //        }
+            //    });
+            //}
 
             return Ok(new
             {

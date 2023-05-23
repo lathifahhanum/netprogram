@@ -1,0 +1,101 @@
+﻿@{
+    ViewData["Title"] = "University";
+    Layout = "_AdminLayout";
+}
+<p></p>
+<div>
+    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#insertModal">
+        <i class="bi bi-plus-circle"></i>   Insert
+    </button>
+</div>
+<p></p>
+<table id="tableData" class="table table-striped table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>No</th>
+            <th>University Name</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody id="listBody">
+    </tbody>
+</table>
+
+<!-- Modal Insert-->
+<div class="modal fade" id="insertModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Add University</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                @*<div class="row">*@
+                        <form role="form" id="insertForm" class="needs-validation" novalidate autocomplete="off">
+                            <div class="form-group" >
+                                <label for="universityName" class="form-label">University Name</label>
+                                <input type="text" class="form-control" id="universityName" placeholder="Enter University Name" required>
+                                <div class="invalid-feedback">Please fill out this field.</div> 
+                            </div>
+                    <div class="form-group">
+                        <div class="text-right">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary" onclick="Insert()">Save</button>
+                        </div>
+                        
+                    </div>
+                           @* <button type="submit" class="btn btn-primary">Submit</button>*@
+                        </form>
+                @*</div>*@
+            </div>
+            @*<div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" onclick="Insert()">Save</button>
+            </div>*@
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<!-- Modal Update-->
+<div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Edit University</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                @*<div class="row">*@
+                <form role="form" method="POST" onsubmit="return false;" id="updateForm" class="needs-validation" novalidate>
+                    <div class="form-group" hidden>
+                        <label for="universityId" class="form-label">University Id</label>
+                        <input type="text" class="form-control" id="universityIdU"  required>
+                        <div class="invalid-feedback">Please fill out this field.</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="universityName" class="form-label">University Name</label>
+                        <input type="text" class="form-control" id="universityNameU" required>
+                        <div class="invalid-feedback">Please fill out this field.</div>
+                    </div>
+                    <div class="form-group">
+                        <div class="text-right">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary" onclick="Update();" id="save">Save</button>
+                        </div>
+                    </div>
+                    @* <button type="submit" class="btn btn-primary">Submit</button>*@
+                </form>
+                @*</div>*@
+            </div>
+            @*<div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="updateData();" id="save">Save</button>
+            </div>*@
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+
+@section Scripts{
+    <script src="~/js/universityAjax.js"></script>
+}

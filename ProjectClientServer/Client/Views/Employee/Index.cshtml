@@ -1,0 +1,219 @@
+﻿@{
+    ViewData["Title"] = "Employee";
+    Layout = "_AdminLayout";
+}
+
+<div style="padding: 10px 0">
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#insertModal">
+        <i class="bi bi-plus-circle-fill"></i>     Insert
+    </button>
+    
+</div>
+<div class="row">
+    <table id="tabledata" class="table table-striped table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>No</th>
+                <th>Nik</th>
+                <th>Name</th>
+                @*<th hidden>Gender</th>*@
+                <th>Birth</th>
+                <th>Hiring Date</th>
+                <th>Email</th>
+                <th>Phone Number</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="listBody">
+        </tbody>
+    </table>
+</div>
+    
+<!-- Modal Insert -->
+<div class="modal fade" id="insertModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Add Data</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                @*<div class="row">*@
+                <form role="form" id="insertForm" class="need-validation" novalidate>
+                    <div class="form-group">
+                        <label for="eNik" class="form-label">NIK</label>
+                        <input type="text" class="form-control" id="eNik" placeholder="" required>
+                        <div class="invalid-feedback">Please fill out this field.</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="eFirstName" class="form-label">First Name</label>
+                        <input type="text" class="form-control" id="eFirstName" placeholder="" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="eLastName" class="form-label">Last Name</label>
+                        <input type="text" class="form-control" id="eLastName" placeholder="" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="eGender" class="form-label">Gender</label>
+                        <select class="form-select" id="eGender" aria-label="Floating label select example">
+                            <option selected>Gender</option>
+                            <option value="0">Male</option>
+                            <option value="1">Female</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="eBirth" class="form-label">Birth Date</label>
+                        <input type="date" data-date-format="yyyy-mm-dd" class="form-control" id="eBirth" placeholder="" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="eHiring" class="form-label">Hiring Date</label>
+                        <input type="date" data-date-format="yyyy-mm-dd" class="form-control" id="eHiring" placeholder="" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="eEmail" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="eEmail" placeholder="" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="ePhone" class="form-label">Phone Number</label>
+                        <input type="number" class="form-control" id="ePhone" placeholder="" required>
+                    </div>
+                    <div class="form-group">
+                        <div class="text-right">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary" onclick="Insert()">Save</button>
+                        </div>
+                    </div>
+                    @* <button type="submit" class="btn btn-primary">Submit</button>*@
+                </form>
+                @*</div>*@
+            </div>
+            @*<div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" onclick="Insert()">Save</button>
+            </div>*@
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<!-- Modal Update -->
+<div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel"></h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                @*<div class="row">*@
+                <form role="form" id="updateForm" class="needs-validation" novalidate>
+                    <div class="form-group">
+                        <label for="eNik" class="form-label">NIK</label>
+                        <input type="text" class="form-control" id="eNikU" placeholder="" required>
+                        <div class="invalid-feedback">Please fill out this field.</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="eFirstName" class="form-label">First Name</label>
+                        <input type="text" class="form-control" id="eFirstNameU" placeholder="" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="eLastName" class="form-label">Last Name</label>
+                        <input type="text" class="form-control" id="eLastNameU" placeholder="" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="eGender" class="form-label">Gender</label>
+                        <select class="form-select" id="eGenderU" aria-label="Floating label select example">
+                            <option selected>Gender</option>
+                            <option value="0">Male</option>
+                            <option value="1">Female</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="eBirth" class="form-label">Birth Date</label>
+                        <input type="date" data-date-format="yyyy-mm-dd" class="form-control" id="eBirthU" placeholder="" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="eHiring" class="form-label">Hiring Date</label>
+                        <input type="date" data-date-format="yyyy-mm-dd" class="form-control" id="eHiringU" placeholder="" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="eEmail" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="eEmailU" placeholder="" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="ePhone" class="form-label">Phone Number</label>
+                        <input type="number" class="form-control" id="ePhoneU" placeholder="" required>
+                    </div>
+                    <div class="form-group">
+                        <div class="text-right">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary" onclick="Update()">Save</button>
+                        </div>
+                    </div>
+                    @* <button type="submit" class="btn btn-primary">Submit</button>*@
+                </form>
+                @*</div>*@
+            </div>
+            @*<div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" onclick="Insert()">Save</button>
+            </div>*@
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<!-- Detail Modal -->
+<div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="name"></h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row g-0">
+                    <ul class="list-group">
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                            <div class="ms-2 me-auto">
+                                <div class="fw-bold">NIK</div>
+                            </div>
+                            <span class="badge bg-dark nik">14</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                            <div class="ms-2 me-auto">
+                                <div class="fw-bold">Date of Birth</div>
+                            </div>
+                            <span class="badge bg-dark birth">14</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                            <div class="ms-2 me-auto">
+                                <div class="fw-bold">Gender</div>
+                            </div>
+                            <span class="badge bg-dark gender">14</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                            <div class="ms-2 me-auto">
+                                <div class="fw-bold">Email</div>
+                            </div>
+                            <span class="badge bg-dark email">14</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                            <div class="ms-2 me-auto">
+                                <div class="fw-bold">Phone Number</div>
+                            </div>
+                            <span class="badge bg-dark phone">14</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                @*<button type="button" class="btn btn-primary">Save changes</button>*@
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+
+@section Scripts{
+    <script src="~/js/employeeAjax.js"></script>
+}

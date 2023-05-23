@@ -1,0 +1,151 @@
+﻿
+@{
+    ViewData["Title"] = "Latihan Ajax";
+}
+
+<h1>List Harry Potter</h1>
+
+@*<ul id="list">
+    <li></li>
+</ul>*@
+
+<table class="table table-striped table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>No</th>
+            <th>Nama</th>
+            <th>Id</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody id="listBody">
+
+    </tbody>
+</table>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel"></h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row g-0">
+                    <div class="col-6 col-md-5">
+                        <img src="" id="imgContent" width="300px" height="350px" />
+                    </div>
+                    <div class="col-sm-6 col-md-7">
+                        <h2 class="bioName d-inline"></h2>
+                        <span class="badge rounded-pill alive">14</span>
+                        <div></div>
+                        <div display="inline" class="nav nav-tabs" id="nav-tab" role="tablist">
+                            <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true"><span>Biograph</span></button>
+                            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false"><span>Visual</span></button>
+                            <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false"><span>Other Information</span></button>
+                        </div>
+                        <div class="tab-content" id="nav-tabContent">
+                            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
+                                <ul class="list-group">
+                                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                                        <div class="ms-2 me-auto">
+                                            <div class="fw-bold">Name</div>
+                                        </div>
+                                        <span class="badge bg-dark rounded-pill name">14</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                                        <div class="ms-2 me-auto">
+                                            <div class="fw-bold">Alternate Names</div>
+                                        </div>
+                                        <span class="badge bg-dark rounded-pill alternate-name">14</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                                        <div class="ms-2 me-auto">
+                                            <div class="fw-bold">Date of Birth</div>
+                                        </div>
+                                        <span class="badge bg-dark rounded-pill birth">14</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                                        <div class="ms-2 me-auto">
+                                            <div class="fw-bold">Gender</div>
+                                        </div>
+                                        <span class="badge bg-dark rounded-pill gender">14</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                                        <div class="ms-2 me-auto">
+                                            <div class="fw-bold">Species</div>
+                                        </div>
+                                        <span class="badge bg-dark rounded-pill species">14</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                                        <div class="ms-2 me-auto">
+                                            <div class="fw-bold">House</div>
+                                        </div>
+                                        <span class="badge bg-dark rounded-pill house">14</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
+                                <ul class="list-group">
+                                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                                        <div class="ms-2 me-auto">
+                                            <div class="fw-bold">Eye Colour</div>
+                                        </div>
+                                        <span class="badge bg-dark rounded-pill eyeColour">14</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                                        <div class="ms-2 me-auto">
+                                            <div class="fw-bold">Hair Colour</div>
+                                        </div>
+                                        <span class="badge bg-dark rounded-pill hairColour">14</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                                        <div class="ms-2 me-auto">
+                                            <div class="fw-bold">Ancestry</div>
+                                        </div>
+                                        <span class="badge bg-success rounded-pill ancestry">14</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab" tabindex="0">
+                                <ul class="list-group">
+                                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                                        <div class="ms-2 me-auto">
+                                            <div class="fw-bold">Patronus</div>
+                                        </div>
+                                        <span class="badge bg-dark rounded-pill patronus">14</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                                        <div class="ms-2 me-auto">
+                                            <div class="fw-bold">Wand</div>
+                                            Core, length, wood.
+                                        </div>
+                                        <span class="badge bg-dark rounded-pill core">14</span>
+                                        <span class="badge bg-dark rounded-pill length">14</span>
+                                        <span class="badge bg-dark rounded-pill wood">14</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                                        <div class="ms-2 me-auto">
+                                            <div class="fw-bold">Wizard</div>
+                                        </div>
+                                        <span class="badge rounded-pill wizard">14</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                @*<button type="button" class="btn btn-primary">Save changes</button>*@
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+
+@section Scripts{
+    <script src="~/js/latihanAjax.js"></script>
+}

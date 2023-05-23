@@ -1,0 +1,47 @@
+﻿@{
+    ViewData["Title"] = "Insert Education";
+    Layout = "_AdminLayout";
+}
+
+<h1>Create</h1>
+
+<h4>Education</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label id="Major" class="control-label"></label>
+                <input id="txtMajor" class="form-control" />
+                @*<span asp-validation-for="Major" class="text-danger"></span>*@
+            </div>
+            <div class="form-group">
+                <label id="Degree" class="control-label"></label>
+                <input id="txtDegree" class="form-control" />
+                @*<span asp-validation-for="Degree" class="text-danger"></span>*@
+            </div>
+            <div class="form-group">
+                <label id="Gpa" class="control-label"></label>
+                <input id="txtGpa" class="form-control" />
+                @*<span asp-validation-for="Gpa" class="text-danger"></span>*@
+            </div>
+            <div class="form-group">
+                <label id="UniversityId" class="control-label"></label>
+                <input id="txtUniversityId" class="form-control" />
+                @*<select id="UniversityId" class="form-control" asp-items="ViewBag.UniversityId"></select>*@
+            </div>
+            <div class="form-group">
+                <input id="btnSave" type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts{
+    <script src="~/js/educationAjax.js"></script>
+}

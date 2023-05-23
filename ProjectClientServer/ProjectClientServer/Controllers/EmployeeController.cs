@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NuGet.Common;
 using NuGet.Protocol.Core.Types;
 using ProjectClientServer.Models;
 using ProjectClientServer.Repositories;
 using ProjectClientServer.Repositories.Contract;
+using ProjectClientServer.Repositories.Data;
 using ProjectClientServer.ViewModel;
 using System.Collections;
 using System.Net;
@@ -13,6 +15,7 @@ namespace ProjectClientServer.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Admin")]
     public class EmployeeController : ControllerBase
     {
         private readonly IEmployeeRepository _employeeRepository;
@@ -101,11 +104,11 @@ namespace ProjectClientServer.Controllers
             });
         }
 
-        [HttpPut]
-        public async Task<ActionResult> Update(Employee employee)
+        [HttpPut("{id}")]
+        public async Task<ActionResult> Update(Employee employee, string id)
         {
-            var results = await _employeeRepository.UpdateAsync(employee);
-            if (results == 0)
+            var results = await _employeeRepository.IsExist(id);
+            if (!results)
             {
                 return NotFound(new
                 {
@@ -117,6 +120,21 @@ namespace ProjectClientServer.Controllers
                     }
                 });
             }
+
+            await _employeeRepository.UpdateAsync(employee);
+            //if (update == 0)
+            //{
+            //    return Conflict(new
+            //    {
+            //        code = StatusCodes.Status409Conflict,
+            //        status = HttpStatusCode.Conflict.ToString(),
+            //        data = new
+            //        {
+            //            message = "Failed updating data!"
+            //        }
+            //    });
+            //}
+
             return Ok(new
             {
                 code = StatusCodes.Status200OK,
@@ -132,19 +150,19 @@ namespace ProjectClientServer.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(string id)
         {
-            var results = await _employeeRepository.DeleteAsync(id);
-            if (results == 0)
-            {
-                return NotFound(new
-                {
-                    code = StatusCodes.Status404NotFound,
-                    status = HttpStatusCode.NotFound.ToString(),
-                    data = new
-                    {
-                        message = "Data Not Found!"
-                    }
-                });
-            }
+             await _employeeRepository.DeleteAsync(id);
+            //if (results == 0)
+            //{
+            //    return NotFound(new
+            //    {
+            //        code = StatusCodes.Status404NotFound,
+            //        status = HttpStatusCode.NotFound.ToString(),
+            //        data = new
+            //        {
+            //            message = "Data Not Found!"
+            //        }
+            //    });
+            //}
 
             return Ok(new
             {

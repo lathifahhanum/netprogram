@@ -1,0 +1,25 @@
+
+body {
+}
+
+.row {
+    border: none;
+}
+
+img {
+    border-radius: 5px;
+}
+
+span {
+    padding-right: 15px;
+}
+
+li {
+    list-style: none;
+    padding-left: 0px;
+}
+
+ul {
+    padding-left: 10px;
+    padding-top: 15px;
+}

@@ -4,6 +4,7 @@ using ProjectClientServer.Models;
 using ProjectClientServer.Repositories;
 using ProjectClientServer.Repositories.Contract;
 using ProjectClientServer.Repositories.Data;
+using System.Data;
 using System.Net;
 
 namespace ProjectClientServer.Controllers
@@ -98,11 +99,11 @@ namespace ProjectClientServer.Controllers
             });
         }
 
-        [HttpPut]
-        public async Task<ActionResult> Update(Profiling profiling)
+        [HttpPut("{nik}")]
+        public async Task<ActionResult> Update(Profiling profiling, string nik)
         {
-            var results = await _profilingRepository.UpdateAsync(profiling);
-            if (results == 0)
+            var results = await _profilingRepository.IsExist(nik);
+            if (!results)
             {
                 return NotFound(new
                 {
@@ -114,6 +115,20 @@ namespace ProjectClientServer.Controllers
                     }
                 });
             }
+            await _profilingRepository.UpdateAsync(profiling);
+            //if (update == 0)
+            //{
+            //    return Conflict(new
+            //    {
+            //        code = StatusCodes.Status409Conflict,
+            //        status = HttpStatusCode.Conflict.ToString(),
+            //        data = new
+            //        {
+            //            message = "Failed updating data!"
+            //        }
+            //    });
+            //}
+
             return Ok(new
             {
                 code = StatusCodes.Status200OK,
@@ -129,19 +144,19 @@ namespace ProjectClientServer.Controllers
         [HttpDelete("{nik}")]
         public async Task<ActionResult> Delete(string nik)
         {
-            var results = await _profilingRepository.DeleteAsync(nik);
-            if (results == 0)
-            {
-                return NotFound(new
-                {
-                    code = StatusCodes.Status404NotFound,
-                    status = HttpStatusCode.NotFound.ToString(),
-                    data = new
-                    {
-                        message = "Data Not Found!"
-                    }
-                });
-            }
+            await _profilingRepository.DeleteAsync(nik);
+            //if (results == 0)
+            //{
+            //    return NotFound(new
+            //    {
+            //        code = StatusCodes.Status404NotFound,
+            //        status = HttpStatusCode.NotFound.ToString(),
+            //        data = new
+            //        {
+            //            message = "Data Not Found!"
+            //        }
+            //    });
+            //}
 
             return Ok(new
             {

@@ -138,6 +138,7 @@ public partial class MyContext : DbContext
                 .HasMaxLength(100)
                 .IsUnicode(false)
                 .HasColumnName("name");
+            
         });
 
         modelBuilder.Entity<AccountRole>(entity =>

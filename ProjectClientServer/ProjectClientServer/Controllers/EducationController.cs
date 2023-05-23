@@ -4,13 +4,15 @@ using Microsoft.AspNetCore.Mvc;
 using ProjectClientServer.Models;
 using ProjectClientServer.Repositories;
 using ProjectClientServer.Repositories.Contract;
+using ProjectClientServer.Repositories.Data;
 using System.Net;
 
 namespace ProjectClientServer.Controllers
 {
-    [Authorize]
+    
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class EducationController : ControllerBase
     {
         private readonly IEducationRepository _educationRepository;
@@ -103,11 +105,11 @@ namespace ProjectClientServer.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        [HttpPut]
-        public async Task<ActionResult> Update(Education education)
+        [HttpPut("{id}")]
+        public async Task<ActionResult> Update(Education education, int id)
         {
-            var results = await _educationRepository.UpdateAsync(education);
-            if (results == 0)
+            var results = await _educationRepository.IsExist(id);
+            if (!results)
             {
                 return NotFound(new
                 {
@@ -119,6 +121,21 @@ namespace ProjectClientServer.Controllers
                     }
                 });
             }
+
+            await _educationRepository.UpdateAsync(education);
+            //if (update == 0)
+            //{
+            //    return Conflict(new
+            //    {
+            //        code = StatusCodes.Status409Conflict,
+            //        status = HttpStatusCode.Conflict.ToString(),
+            //        data = new
+            //        {
+            //            message = "Failed updating data!"
+            //        }
+            //    });
+            //}
+
             return Ok(new
             {
                 code = StatusCodes.Status200OK,
@@ -135,19 +152,19 @@ namespace ProjectClientServer.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {
-            var results = await _educationRepository.DeleteAsync(id);
-            if (results == 0)
-            {
-                return NotFound(new
-                {
-                    code = StatusCodes.Status404NotFound,
-                    status = HttpStatusCode.NotFound.ToString(),
-                    data = new
-                    {
-                        message = "Data Not Found!"
-                    }
-                });
-            }
+            await _educationRepository.DeleteAsync(id);
+            //if (results == 0)
+            //{
+            //    return NotFound(new
+            //    {
+            //        code = StatusCodes.Status404NotFound,
+            //        status = HttpStatusCode.NotFound.ToString(),
+            //        data = new
+            //        {
+            //            message = "Data Not Found!"
+            //        }
+            //    });
+            //}
 
             return Ok(new
             {

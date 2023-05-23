@@ -15,12 +15,15 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 var connectionString = builder.Configuration.GetConnectionString("Default");
-builder.Services.AddDbContext<MyContext>(options => options.UseSqlServer(connectionString));
+builder.Services.AddDbContext<MyContext>(options => {
+    options.UseSqlServer(connectionString);
+    options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+});
 
 builder.Services.AddCors(options =>
         options.AddDefaultPolicy(policy =>
         {
-            policy.AllowAnyOrigin();
+            policy.AllowAnyOrigin(); //open api, bisa gunakan: AllowWithOrigin(server); -> utk server yg diinginkan saja.
             policy.AllowAnyHeader();
             policy.AllowAnyMethod();
         }));
@@ -45,7 +48,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 ValidateIssuer = true,
                 ValidateAudience = true,
                 ValidateLifetime = true,
-                //ValidateIssuerSigningKey = true,
+                ValidateIssuerSigningKey = true,
+
                 ValidIssuer = builder.Configuration["Jwt:Issuer"],
                 ValidAudience = builder.Configuration["Jwt:Audience"],
                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"])),

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\FGA\\DTS Fullstack Developer\\Basic Programming\\ProjectClientServer\\ProjectClientServer\\ProjectClientServer.csproj": {}
+    "D:\\FGA\\DTS Fullstack Developer\\Basic Programming\\net project\\ProjectClientServer\\ProjectClientServer\\ProjectClientServer.csproj": {}
   },
   "projects": {
-    "D:\\FGA\\DTS Fullstack Developer\\Basic Programming\\ProjectClientServer\\ProjectClientServer\\ProjectClientServer.csproj": {
+    "D:\\FGA\\DTS Fullstack Developer\\Basic Programming\\net project\\ProjectClientServer\\ProjectClientServer\\ProjectClientServer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\FGA\\DTS Fullstack Developer\\Basic Programming\\ProjectClientServer\\ProjectClientServer\\ProjectClientServer.csproj",
+        "projectUniqueName": "D:\\FGA\\DTS Fullstack Developer\\Basic Programming\\net project\\ProjectClientServer\\ProjectClientServer\\ProjectClientServer.csproj",
         "projectName": "ProjectClientServer",
-        "projectPath": "D:\\FGA\\DTS Fullstack Developer\\Basic Programming\\ProjectClientServer\\ProjectClientServer\\ProjectClientServer.csproj",
+        "projectPath": "D:\\FGA\\DTS Fullstack Developer\\Basic Programming\\net project\\ProjectClientServer\\ProjectClientServer\\ProjectClientServer.csproj",
         "packagesPath": "C:\\Users\\Lathifah Hanum\\.nuget\\packages\\",
-        "outputPath": "D:\\FGA\\DTS Fullstack Developer\\Basic Programming\\ProjectClientServer\\ProjectClientServer\\obj\\",
+        "outputPath": "D:\\FGA\\DTS Fullstack Developer\\Basic Programming\\net project\\ProjectClientServer\\ProjectClientServer\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Lathifah Hanum\\AppData\\Roaming\\NuGet\\NuGet.Config",

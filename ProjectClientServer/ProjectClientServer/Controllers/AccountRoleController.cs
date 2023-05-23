@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using ProjectClientServer.Models;
 using ProjectClientServer.Repositories;
 using ProjectClientServer.Repositories.Contract;
+using ProjectClientServer.Repositories.Data;
 using System.Net;
 
 namespace ProjectClientServer.Controllers
@@ -97,11 +98,11 @@ namespace ProjectClientServer.Controllers
             });
         }
 
-        [HttpPut]
-        public async Task<ActionResult> Update(AccountRole accountRole)
+        [HttpPut("{id}")]
+        public async Task<ActionResult> Update(AccountRole accountRole, int id)
         {
-            var results = await _accountRoleRepository.UpdateAsync(accountRole);
-            if (results == 0)
+            var results = await _accountRoleRepository.IsExist(id);
+            if (!results)
             {
                 return NotFound(new
                 {
@@ -113,6 +114,21 @@ namespace ProjectClientServer.Controllers
                     }
                 });
             }
+
+            await _accountRoleRepository.UpdateAsync(accountRole);
+            //if (update == 0)
+            //{
+            //    return Conflict(new
+            //    {
+            //        code = StatusCodes.Status409Conflict,
+            //        status = HttpStatusCode.Conflict.ToString(),
+            //        data = new
+            //        {
+            //            message = "Failed updating data!"
+            //        }
+            //    });
+            //}
+
             return Ok(new
             {
                 code = StatusCodes.Status200OK,
@@ -128,19 +144,19 @@ namespace ProjectClientServer.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {
-            var results = await _accountRoleRepository.DeleteAsync(id);
-            if (results == 0)
-            {
-                return NotFound(new
-                {
-                    code = StatusCodes.Status404NotFound,
-                    status = HttpStatusCode.NotFound.ToString(),
-                    data = new
-                    {
-                        message = "Data Not Found!"
-                    }
-                });
-            }
+            await _accountRoleRepository.DeleteAsync(id);
+            //if (results == 0)
+            //{
+            //    return NotFound(new
+            //    {
+            //        code = StatusCodes.Status404NotFound,
+            //        status = HttpStatusCode.NotFound.ToString(),
+            //        data = new
+            //        {
+            //            message = "Data Not Found!"
+            //        }
+            //    });
+            //}
 
             return Ok(new
             {

@@ -98,11 +98,11 @@ namespace ProjectClientServer.Controllers
             });
         }
 
-        [HttpPut]
-        public async Task<ActionResult> Update(Role role)
+        [HttpPut("{id}")]
+        public async Task<ActionResult> Update(Role role, int id)
         {
-            var results = await _roleRepository.UpdateAsync(role);
-            if (results == 0)
+            var results = await _roleRepository.IsExist(id);
+            if (!results)
             {
                 return NotFound(new
                 {
@@ -114,6 +114,21 @@ namespace ProjectClientServer.Controllers
                     }
                 });
             }
+
+            await _roleRepository.UpdateAsync(role);
+            //if(update == 0)
+            //{
+            //    return Conflict(new
+            //    {
+            //        code = StatusCodes.Status409Conflict,
+            //        status = HttpStatusCode.Conflict.ToString(),
+            //        data = new
+            //        {
+            //            message = "Failed updating data!"
+            //        }
+            //    });
+            //}
+
             return Ok(new
             {
                 code = StatusCodes.Status200OK,
@@ -129,19 +144,19 @@ namespace ProjectClientServer.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {
-            var results = await _roleRepository.DeleteAsync(id);
-            if (results == 0)
-            {
-                return NotFound(new
-                {
-                    code = StatusCodes.Status404NotFound,
-                    status = HttpStatusCode.NotFound.ToString(),
-                    data = new
-                    {
-                        message = "Data Not Found!"
-                    }
-                });
-            }
+             await _roleRepository.DeleteAsync(id);
+            //if (results == 0)
+            //{
+            //    return NotFound(new
+            //    {
+            //        code = StatusCodes.Status404NotFound,
+            //        status = HttpStatusCode.NotFound.ToString(),
+            //        data = new
+            //        {
+            //            message = "Data Not Found!"
+            //        }
+            //    });
+            //}
 
             return Ok(new
             {

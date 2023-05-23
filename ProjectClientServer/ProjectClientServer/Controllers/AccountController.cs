@@ -1,11 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using NuGet.Protocol.Core.Types;
-using NuGet.Protocol.Plugins;
 using ProjectClientServer.Handler;
 using ProjectClientServer.Models;
-using ProjectClientServer.Repositories;
 using ProjectClientServer.Repositories.Contract;
 using ProjectClientServer.ViewModel;
 using System.Net;
@@ -34,7 +30,7 @@ namespace ProjectClientServer.Controllers
 
         [AllowAnonymous]
         [HttpPost("Auth")]
-        public async Task<ActionResult<Account>> Login(LoginVM loginVM)
+        public async Task<ActionResult<Account>> Login([FromBody]LoginVM loginVM)
         {
             try
             {
@@ -188,11 +184,11 @@ namespace ProjectClientServer.Controllers
             });
         }
 
-        [HttpPut]
-        public async Task<ActionResult> Update(Account account)
+        [HttpPut("{nik}")]
+        public async Task<ActionResult> Update(Account account, string nik)
         {
-            var results = await _accountRepository.UpdateAsync(account);
-            if (results == 0)
+            var results = await _accountRepository.IsExist(nik);
+            if (!results)
             {
                 return NotFound(new
                 {
@@ -204,6 +200,21 @@ namespace ProjectClientServer.Controllers
                     }
                 });
             }
+
+            await _accountRepository.UpdateAsync(account);
+            //if (update == 0)
+            //{
+            //    return Conflict(new
+            //    {
+            //        code = StatusCodes.Status409Conflict,
+            //        status = HttpStatusCode.Conflict.ToString(),
+            //        data = new
+            //        {
+            //            message = "Failed updating data!"
+            //        }
+            //    });
+            //}
+
             return Ok(new
             {
                 code = StatusCodes.Status200OK,
@@ -219,8 +230,8 @@ namespace ProjectClientServer.Controllers
         [HttpDelete("{nik}")]
         public async Task<ActionResult> Delete(string nik)
         {
-            var results = await _accountRepository.DeleteAsync(nik);
-            if (results == 0)
+            var results = await _accountRepository.GetByIdAsync(nik);
+            if (results == null)
             {
                 return NotFound(new
                 {
@@ -233,6 +244,7 @@ namespace ProjectClientServer.Controllers
                 });
             }
 
+            await _accountRepository.DeleteAsync(nik);
             return Ok(new
             {
                 code = StatusCodes.Status200OK,

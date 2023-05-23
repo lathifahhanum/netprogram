@@ -1,0 +1,29 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "_Layout";
+}
+<p class="login-box-msg">Sign in </p>
+
+<form role="form" class="needs-validation" id="formLogin" novalidate>
+    <div class="input-group mb-3">
+        <input type="email" class="form-control" id="loginEmail" placeholder="Email" required>
+        <div class="invalid-feedback">
+            Please provide a valid email.
+        </div>
+    </div>
+    <div class="input-group mb-3">
+        <input type="password" id="loginPass" class="form-control" placeholder="Password" required>
+        <div class="invalid-feedback">
+            Password cannot be empty.
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">
+            <button id="btnLogin" class="btn btn-primary btn-block" onclick="Login()">Sign In</button>
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+    <script src="~/js/login.js"></script>
+}
